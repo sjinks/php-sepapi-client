@@ -57,6 +57,8 @@ class SepAPI
      */
     private function doRequest(string $url, array $post = null)
     {
+        $this->maybeInstantiateCurl();
+
         $this->curl->reset();
         $this->curl->setOptions([
             CURLOPT_URL            => $this->endpoint . $url,
