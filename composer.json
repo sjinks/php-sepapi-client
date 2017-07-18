@@ -1,6 +1,7 @@
 {
     "name": "wildwolf/sepapi-client",
     "description": "Private package - SepAPI client",
+    "license": "MIT",
     "require": {
         "php": ">=7.0",
         "wildwolf/curl-wrapper": "^1.0"
