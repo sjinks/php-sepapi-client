@@ -1,0 +1,8 @@
+{
+    "name": "wildwolf/sepapi-client",
+    "description": "Private package - SepAPI client",
+    "require": {
+        "php": ">=7.0",
+        "wildwolf/curl-wrapper": "^1.0"
+    }
+}
