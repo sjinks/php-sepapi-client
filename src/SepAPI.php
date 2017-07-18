@@ -42,6 +42,13 @@ class SepAPI
         $this->token = $token;
     }
 
+    private function maybeInstantiateCurl()
+    {
+        if (!$this->curl) {
+            $this->curl = new \WildWolf\CurlWrapper();
+        }
+    }
+
     /**
      * @param string $url
      * @param array $post
@@ -50,23 +57,15 @@ class SepAPI
      */
     private function doRequest(string $url, array $post = null)
     {
-        if (!$this->curl) {
-            $this->curl = new \WildWolf\CurlWrapper();
-        }
-
+        $this->curl->reset();
         $this->curl->setOptions([
             CURLOPT_URL            => $this->endpoint . $url,
             CURLOPT_HEADER         => false,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER     => ['Authorization: Basic ' . $this->token],
+            CURLOPT_POST           => $post !== null,
+            CURLOPT_POSTFIELDS     => $post,
         ]);
-
-        if ($post !== null) {
-            $this->curl->setOptions([
-                CURLOPT_POST       => true,
-                CURLOPT_POSTFIELDS => $post,
-            ]);
-        }
 
         $response = $this->curl->execute();
         $code     = (int)$this->curl->info(CURLINFO_HTTP_CODE);
