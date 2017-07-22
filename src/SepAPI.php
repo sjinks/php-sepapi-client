@@ -65,9 +65,14 @@ class SepAPI
             CURLOPT_HEADER         => false,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_HTTPHEADER     => ['Authorization: Basic ' . $this->token],
-            CURLOPT_POST           => $post !== null,
-            CURLOPT_POSTFIELDS     => $post,
         ]);
+
+        if ($post !== null) {
+            $this->curl->setOptions([
+                CURLOPT_POST       => true,
+                CURLOPT_POSTFIELDS => $post,
+            ]);
+        }
 
         $response = $this->curl->execute();
         $code     = (int)$this->curl->info(CURLINFO_HTTP_CODE);
