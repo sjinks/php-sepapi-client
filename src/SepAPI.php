@@ -109,10 +109,13 @@ class SepAPI
 
     /**
      * @param int $uid
+     * @param string $guid
+     * @param string $ip
+     * @param int $dt
      * @return mixed
      */
-    public function trackUpload($uid)
+    public function trackUpload($uid, string $guid, string $ip, int $dt)
     {
-        return $this->doRequest('/users/trackupload', ['id' => $uid]);
+        return $this->doRequest('/users/trackupload', ['id' => $uid, 'guid' => $guid, 'ip' => $ip, 'dt' => $dt]);
     }
 }
